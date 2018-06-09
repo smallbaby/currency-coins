@@ -6,8 +6,8 @@ import hashlib
 import zlib
 import base64
 
-api_key=''
-secret_key = ""
+api_key='ce9250d4-a8c8-4993-9a1f-a5e5351a201b'
+secret_key = "4EE6C288D44C5852927303D7F576AC09"
 #business
 def buildMySign(params,secretKey):
     sign = ''
@@ -129,6 +129,7 @@ def on_message(self,evt):
     data = inflate(evt) #data decompress
     print (data)
 def inflate(data):
+    print(data)
     decompress = zlib.decompressobj(
             -zlib.MAX_WBITS  # see above
     )
@@ -144,8 +145,8 @@ def on_close(self,evt):
 
 if __name__ == "__main__":
     url = "wss://real.okcoin.com:10440/websocket/okcoinapi"      #if okcoin.cn  change url wss://real.okcoin.cn:10440/websocket/okcoinapi
-    api_key='your api_key which you apply'
-    secret_key = "your secret_key which you apply"
+    api_key='ce9250d4-a8c8-4993-9a1f-a5e5351a201b'
+    secret_key = "4EE6C288D44C5852927303D7F576AC09"
 
     websocket.enableTrace(False)
     if len(sys.argv) < 2:
