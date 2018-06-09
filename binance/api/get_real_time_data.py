@@ -3,7 +3,8 @@ import dateparser
 import pytz
 import json
 import sys
-from core.common.string_tools import *
+sys.path.append('../..')
+from common.string_tools import *
 from datetime import datetime
 from binance.client import Client
 from binance.websockets import BinanceSocketManager
