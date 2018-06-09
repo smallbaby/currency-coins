@@ -91,9 +91,7 @@ def futureRealTrades(api_key,secretkey):
     return "{'event':'addChannel','channel':'ok_sub_futureusd_trades','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'},'binary':'true'}"
 
 def on_open(self):
-    #subscribe okcoin.com spot ticker
-    self.send("{'event':'addChannel','channel':'ok_sub_spotusd_btc_ticker','binary':'true'}")
-
+    self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_kline_1min'}");
     #subscribe okcoin.com future this_week ticker
     #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_ticker_this_week','binary':'true'}")
 
@@ -129,7 +127,6 @@ def on_message(self,evt):
     data = inflate(evt) #data decompress
     print (data)
 def inflate(data):
-    print(data)
     decompress = zlib.decompressobj(
             -zlib.MAX_WBITS  # see above
     )
