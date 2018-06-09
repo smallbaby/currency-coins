@@ -6,8 +6,6 @@ import hashlib
 import zlib
 import base64
 
-api_key='ce9250d4-a8c8-4993-9a1f-a5e5351a201b'
-secret_key = "4EE6C288D44C5852927303D7F576AC09"
 #business
 def buildMySign(params,secretKey):
     sign = ''
@@ -92,7 +90,7 @@ def futureRealTrades(api_key,secretkey):
 
 def on_open(self):
 
-    self.send("{'event':'addChannel','channel':'ok_sub_spot_ltc_usd_ticker'}");
+    self.send("{'event':'addChannel','channel':'ok_sub_spot_btc_usd_kline_1min'}");
 
 def on_message(self,evt):
     print(evt)
@@ -114,8 +112,8 @@ def on_close(self,evt):
 
 if __name__ == "__main__":
     url = "wss://real.okcoin.com:10440/websocket/okcoinapi"
-    api_key='ce9250d4-a8c8-4993-9a1f-a5e5351a201b'
-    secret_key = "4EE6C288D44C5852927303D7F576AC09"
+    api_key=''
+    secret_key = ''
 
     websocket.enableTrace(False)
     if len(sys.argv) < 2:
