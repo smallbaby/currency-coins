@@ -1,0 +1,44 @@
+
+###############################  binance api  start....######
+wss://stream.binance.com:9443
+# A single connection to stream.binance.com is only valid for 24 hours; expect to be disconnected at the 24 hour mark
+/ws/<streamName>
+python3验证：
+kline
+
+/ws/ethbtc@kline_1m
+
+Register on Binance  and Generate an API Key
+依赖：
+autobahn==17.9.3
+certifi==2017.7.27.1
+chardet==3.0.4
+cryptography==1.8.1
+pyOpenSSL==17.3.0
+requests==2.18.4
+service-identity==17.0.0
+six==1.11.0
+Twisted==17.9.0
+urllib3==1.22
+
+
+历史数据接口
+
+
+分钟实时接口
+from binance.enums import *
+conn_key = bm.start_kline_socket('BNBBTC', process_message, interval=KLINE_INTERVAL_30MINUTE)
+
+
+
+###############################  binance api  end ....######
+
+################### okcoin start ###############
+websocket.send("{'event':'addChannel','channel':'ok_sub_spot_X_kline_Y'}");
+① X值为：btc_usd, ltc_usd, eth_usd, etc_usd, bcc_usd
+② Y值为：1min, 3min, 5min, 15min, 30min, 1hour, 2hour, 4hour, 6hour, 12hour, day, 3day, week
+API_KEY = ce9250d4-a8c8-4993-9a1f-a5e5351a201b
+secretKey = 4EE6C288D44C5852927303D7F576AC09
+
+
+验证接口、证书、频率、格式、代理等
