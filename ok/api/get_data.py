@@ -91,42 +91,14 @@ def futureRealTrades(api_key,secretkey):
     return "{'event':'addChannel','channel':'ok_sub_futureusd_trades','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'},'binary':'true'}"
 
 def on_open(self):
-    self.send("{'event':'addChannel','channel':'ok_sub_spotcny_btc_kline_1min'}");
-    #subscribe okcoin.com future this_week ticker
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_btc_ticker_this_week','binary':'true'}")
 
-    #subscribe okcoin.com future depth
-    #self.send("{'event':'addChannel','channel':'ok_sub_futureusd_ltc_depth_next_week_20','binary':'true'}")
+    self.send("{'event':'addChannel','channel':'ok_sub_spot_ltc_usd_ticker'}");
 
-    #subscrib real trades for self
-    #realtradesMsg = realtrades('ok_sub_spotusd_trades',api_key,secret_key)
-    #self.send(realtradesMsg)
-
-
-    #spot trade via websocket
-    #spotTradeMsg = spotTrade('ok_spotusd_trade',api_key,secret_key,'ltc_usd','buy_market','1','')
-    #self.send(spotTradeMsg)
-
-
-    #spot trade cancel
-    #spotCancelOrderMsg = spotCancelOrder('ok_spotusd_cancel_order',api_key,secret_key,'btc_usd','125433027')
-    #self.send(spotCancelOrderMsg)
-
-    #future trade
-    #futureTradeMsg = futureTrade(api_key,secret_key,'btc_usd','this_week','','2','1','1','20')
-    #self.send(futureTradeMsg)
-
-    #future trade cancel
-    #futureCancelOrderMsg = futureCancelOrder(api_key,secret_key,'btc_usd','65464','this_week')
-    #self.send(futureCancelOrderMsg)
-
-    #subscrbe future trades for self
-    #futureRealTradesMsg = futureRealTrades(api_key,secret_key)
-    #self.send(futureRealTradesMsg)
 def on_message(self,evt):
-    data = inflate(evt) #data decompress
-    print (data)
+    print(evt)
+    #data = inflate(evt) #data decompress
 def inflate(data):
+    print(data)
     decompress = zlib.decompressobj(
             -zlib.MAX_WBITS  # see above
     )
@@ -135,13 +107,13 @@ def inflate(data):
     return inflated
 
 def on_error(self,evt):
-    print (evt)
+    print (self,evt)
 
 def on_close(self,evt):
     print ('DISCONNECT')
 
 if __name__ == "__main__":
-    url = "wss://real.okcoin.com:10440/websocket/okcoinapi"      #if okcoin.cn  change url wss://real.okcoin.cn:10440/websocket/okcoinapi
+    url = "wss://real.okcoin.com:10440/websocket/okcoinapi"
     api_key='ce9250d4-a8c8-4993-9a1f-a5e5351a201b'
     secret_key = "4EE6C288D44C5852927303D7F576AC09"
 
