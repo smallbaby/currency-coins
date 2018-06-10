@@ -5,7 +5,17 @@ from websocket import create_connection
 import gzip
 import time
 
-if __name__ == '__main__':
+def send(ws):
+    # 订阅 KLine 数据
+    t1 = """{"sub": "market.ethbtc.kline.1min","id": "id10"}"""
+    t2 = """{"sub": "market.eosbtc.kline.1min","id": "id11"}"""
+    t3 = """{"sub": "market.bchbtc.kline.1min","id": "id12"}"""
+    ws.send(t1)
+    ws.send(t2)
+    ws.send(t3)
+    return ws
+
+def main():
     while (1):
         try:
             ws = create_connection("wss://api.huobipro.com/ws")
@@ -13,29 +23,7 @@ if __name__ == '__main__':
         except:
             print('connect ws error,retry...')
             time.sleep(5)
-
-    # 订阅 KLine 数据
-    tradeStr = """{"sub": "market.ethbtc.kline.1min","id": "id10"}"""
-
-    # 请求 KLine 数据
-    # tradeStr="""{"req": "market.ethusdt.kline.1min","id": "id10", "from": 1513391453, "to": 1513392453}"""
-
-    # 订阅 Market Depth 数据
-    # tradeStr="""{"sub": "market.ethusdt.depth.step5", "id": "id10"}"""
-
-    # 请求 Market Depth 数据
-    # tradeStr="""{"req": "market.ethusdt.depth.step5", "id": "id10"}"""
-
-    # 订阅 Trade Detail 数据
-    # tradeStr="""{"sub": "market.ethusdt.trade.detail", "id": "id10"}"""
-
-    # 请求 Trade Detail 数据
-    #tradeStr="""{"req": "market.ethusdt.trade.detail", "id": "id10"}"""
-
-    # 请求 Market Detail 数据
-    tradeStr="""{"req": "market.btcusdt.detail", "id": "id12"}"""
-
-    ws.send(tradeStr)
+    send(ws)
     while (1):
         compressData = ws.recv()
         result = gzip.decompress(compressData).decode('utf-8')
@@ -43,8 +31,16 @@ if __name__ == '__main__':
             ts = result[8:21]
             pong = '{"pong":' + ts + '}'
             ws.send(pong)
-            ws.send(tradeStr)
+            send(ws)
         else:
             print(result)
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except Exception as e:
+        print(e)
+
 
 
