@@ -33,64 +33,9 @@ def spotTrade(channel,api_key,secretkey,symbol,tradeType,price='',amount=''):
     finalStr+="},'binary':'true'}"
     return finalStr
 
-#spot cancel order
-def spotCancelOrder(channel,api_key,secretkey,symbol,orderId):
-    params = {
-      'api_key':api_key,
-      'symbol':symbol,
-      'order_id':orderId
-    }
-    sign = buildMySign(params,secretkey)
-    return "{'event':'addChannel','channel':'"+channel+"','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"','symbol':'"+symbol+"','order_id':'"+orderId+"'},'binary':'true'}"
-
-#subscribe trades for self
-def realtrades(channel,api_key,secretkey):
-   params={'api_key':api_key}
-   sign=buildMySign(params,secretkey)
-   return "{'event':'addChannel','channel':'"+channel+"','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'},'binary':'true'}"
-
-# trade for future
-def futureTrade(api_key,secretkey,symbol,contractType,price='',amount='',tradeType='',matchPrice='',leverRate=''):
-    params = {
-      'api_key':api_key,
-      'symbol':symbol,
-      'contract_type':contractType,
-      'amount':amount,
-      'type':tradeType,
-      'match_price':matchPrice,
-      'lever_rate':leverRate
-    }
-    if price:
-        params['price'] = price
-    sign = buildMySign(params,secretkey)
-    finalStr = "{'event':'addChannel','channel':'ok_futuresusd_trade','parameters':{'api_key':'"+api_key+"',\
-               'sign':'"+sign+"','symbol':'"+symbol+"','contract_type':'"+contractType+"'"
-    if price:
-        finalStr += ",'price':'"+price+"'"
-    finalStr += ",'amount':'"+amount+"','type':'"+tradeType+"','match_price':'"+matchPrice+"','lever_rate':'"+leverRate+"'},'binary':'true'}"
-    return finalStr
-
-#future trade cancel
-def futureCancelOrder(api_key,secretkey,symbol,orderId,contractType):
-    params = {
-      'api_key':api_key,
-      'symbol':symbol,
-      'order_id':orderId,
-      'contract_type':contractType
-    }
-    sign = buildMySign(params,secretkey)
-    return "{'event':'addChannel','channel':'ok_futuresusd_cancel_order','parameters':{'api_key':'"+api_key+"',\
-            'sign':'"+sign+"','symbol':'"+symbol+"','contract_type':'"+contractType+"','order_id':'"+orderId+"'},'binary':'true'}"
-
-#subscribe future trades for self
-def futureRealTrades(api_key,secretkey):
-    params = {'api_key':api_key}
-    sign = buildMySign(params,secretkey)
-    return "{'event':'addChannel','channel':'ok_sub_futureusd_trades','parameters':{'api_key':'"+api_key+"','sign':'"+sign+"'},'binary':'true'}"
-
 def on_open(self):
 
-    self.send("{'event':'addChannel','channel':'ok_sub_spot_btc_usd_kline_1min'}");
+    self.send("{'event':'addChannel','channel':'ok_sub_spot_eth_btc_kline_3min'}");
 
 def on_message(self,evt):
     print(evt)

@@ -1,4 +1,21 @@
 
+### 抓取交易所TOP50币种的历史行情数据、实时数据
+
+####调研
+
+数据 | Binance | Huobi | OkCoin | Bitfinex
+- | :-: | -:
+历史行情数据 | OK | OK | NO | NO
+实时接口 | OK | OK | OK | OK
+
+#### 实现
+
+##### Binance 历史数据获取
+
+*
+
+
+
 ###############################  binance api  start....######
 wss://stream.binance.com:9443
 # A single connection to stream.binance.com is only valid for 24 hours; expect to be disconnected at the 24 hour mark
@@ -24,8 +41,22 @@ conn_key = bm.start_kline_socket('BNBBTC', process_message, interval=KLINE_INTER
 websocket.send("{'event':'addChannel','channel':'ok_sub_spot_X_kline_Y'}");
 ① X值为：btc_usd, ltc_usd, eth_usd, etc_usd, bcc_usd
 ② Y值为：1min, 3min, 5min, 15min, 30min, 1hour, 2hour, 4hour, 6hour, 12hour, day, 3day, week
-API_KEY = ce9250d4-a8c8-4993-9a1f-a5e5351a201b
-secretKey = 4EE6C288D44C5852927303D7F576AC09
+公共API
+GET /v1/common/symbols 查询Pro站支持的所有交易对及精度
+GET /v1/hadax/common/symbols 查询HADAX站支持的所有交易对及精度
+
+
+OK无历史行情获取接口(TODO:找rest接口获取历史）
+
+############ bitfinex ##
+1、本机无法测试
+2、获取实时行情可以
+3、历史数据找rest接口 TODO
+
+
+
+
+
 
 
 验证接口、证书、频率、格式、代理等

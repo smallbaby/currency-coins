@@ -4,6 +4,7 @@ from common.string_tools import *
 from datetime import datetime
 from binance.client import Client
 from binance.websockets import BinanceSocketManager
+from conf.setting import *
 
 def process_message(msg):
     print("message type: {}".format(msg['e']))

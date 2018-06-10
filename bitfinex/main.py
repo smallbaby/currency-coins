@@ -1,35 +1,46 @@
-import os
+import logging
+import time
 import sys
-from datetime import datetime
 
-import bitfinex
+from btfxwss import BtfxWss
 
-# symbol to query the order book
-symbol = 'btcusd'
+log = logging.getLogger(__name__)
 
-# set the parameters to limit the number of bids or asks
-parameters = {'limit_asks': 5, 'limit_bids': 5}
+fh = logging.FileHandler('test.log')
+fh.setLevel(logging.DEBUG)
+sh = logging.StreamHandler(sys.stdout)
+sh.setLevel(logging.DEBUG)
 
-# create the client
-client = bitfinex.Client()
-print(client)
-while True:
+log.addHandler(sh)
+log.addHandler(fh)
+logging.basicConfig(level=logging.DEBUG, handlers=[fh, sh])
 
-    # get latest ticker
-    ticker = client.ticker(symbol)
+wss = BtfxWss()
+wss.start()
 
-    # get the order book
-    orders = client.order_book(symbol, parameters)
+while not wss.conn.connected.is_set():
+    time.sleep(1)
 
-    # clear the display, and update values
-    os.system('clear')
+wss.subscribe_to_ticker('BTCUSD')
+wss.subscribe_to_ticker('ETHUSD')
+wss.subscribe_to_ticker('EOSUSD')
+wss.subscribe_to_ticker('ETHBTC')
+wss.subscribe_to_ticker('EOSBTC')
+wss.subscribe_to_ticker('EOSETH')
 
-    print("# Bitfinex (Last Update : %s)" % (datetime.now()))
-    print("## Last Ticker")
-    print(ticker)
 
-    for order_type in orders:
-        print("")
-        print("%s %s" % ("## ", order_type))
-        for order in orders[order_type]:
-            print(order)
+
+while (1):
+    q1 = wss.tickers('BTCUSD')
+    q2 = wss.tickers('ETHBTC')
+    q3 = wss.tickers('BTCUSD')
+    q4 = wss.tickers('ETHBTC')
+    q5 = wss.tickers('BTCUSD')
+    q6 = wss.tickers('ETHBTC')
+    print({'BTCUSD': q1.get()})
+    print({'ETHUSD': q2.get()})
+    print({'EOSUSD': q3.get()})
+    print({'ETHBTC': q4.get()})
+    print({'EOSBTC': q5.get()})
+    print({'EOSETH': q6.get()})
+

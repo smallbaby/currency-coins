@@ -27,7 +27,7 @@ async def fetch_data():
     async with aiohttp.ClientSession() as session:
         async with session.ws_connect(api, proxy=proxy) as ws:
             for start, end in arrow.Arrow.span_range(
-                    'hour', arrow.get('2018-03-01'), arrow.get('2018-06-01')):
+                    'hour', arrow.get('2018-03-01'), arrow.get('2018-03-02')):
                 payload = {
                     'req': "market."+key+".kline.1min",
                     'id': start.timestamp,
